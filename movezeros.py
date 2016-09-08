@@ -24,3 +24,4 @@ if __name__=='__main__':
 	test = Solution()
 	nums=[1]
 	test.moveZeroes(nums)
+
