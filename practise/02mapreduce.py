@@ -1,0 +1,5 @@
+list1=range(5)
+list2=range(5,10)
+lists=range(10)
+print map(lambda x,y:(x,y),list1,list2)
+print reduce(lambda x,y:x+y,lists)
