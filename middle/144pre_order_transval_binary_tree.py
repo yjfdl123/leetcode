@@ -18,8 +18,11 @@ class Solution(object):
         	tran.extend( self.preorderTraversal( root.right) )
         return tran
 
+from heapq import *
+import heapq
+print help(heapq)
+x=[3,2,4,5,6,2]
+print nlargest(3,x)
+print nsmallest(3,x)
 
-x=[]
-x.extend([1,2,3])
-x.extend([])
-print x
+
