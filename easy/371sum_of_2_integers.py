@@ -5,6 +5,11 @@ class Solution(object):
         :type b: int
         :rtype: int
         """
+        if a<b: a,b=b,a
+        carry = 0
+        while a>0:
+        	
+
         
 
 
