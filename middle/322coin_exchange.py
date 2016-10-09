@@ -17,17 +17,13 @@ class Solution(object):
         import sys
         dic = { idx:sys.maxint for idx in range(amount+1)}
         dic[0]=0
-        for tsum in range(amount+1):
+        for tsum in range(1,amount+1):
             mins = sys.maxint
             for coin in coins:
                 if tsum - coin >=0 and dic[tsum-coin]<mins:
                     mins = dic[tsum-coin]
-                dic[tsum] = min(dic[tsum], mins+1)
+            dic[tsum] = min(dic[tsum], mins+1)
         return dic[amount] if dic[amount]!=sys.maxint else -1
-
-
-
-
 
 so=Solution()
 print so.coinChange([1,2,5],11)
