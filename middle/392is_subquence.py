@@ -1,5 +1,32 @@
+#coding=utf-8
 class Solution(object):
     def isSubsequence(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        lens=len(s)
+        lent=len(t)
+        if lens>lent:
+            return False
+        elif lens==lent: 
+            return s==t
+        else:
+            if lens==0 : return True
+            start1,start2 = 0, 0
+            while start2<lent:
+                if t[start2]==s[start1]:
+                    start1+=1
+                    if start1==lens: return True
+                start2+=1
+            return False
+
+
+
+
+
+    def isSubsequence2(self, s, t):
         """
         :type s: str
         :type t: str
@@ -52,7 +79,7 @@ class Solution(object):
 
 if __name__ == '__main__':
 	dicts = {
-		"abc":"abesce",
+		"abc":"ahgbdc",
 		"ac":"ade",
 		"a":"b",
 		"aebcdsd":"123aebcdsdddsd",
