@@ -22,4 +22,7 @@ class Solution(object):
         return maxnum
 so=Solution()
 print so.lengthOfLongestSubstring("c")
+x=["91","911","931","95","88","89","11"]
+x.sort(reverse=True)
+print x
 

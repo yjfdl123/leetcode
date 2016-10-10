@@ -5,15 +5,19 @@ class Solution(object):
         :type b: int
         :rtype: int
         """
-        if a<b: a,b=b,a
-        carry = 0
-        while a>0:
-        	
+        while b>0:
+            carry = a&b
+            a = a^b
+            b = carry<<1
+        return a
+            
 
         
 
 
 if __name__ == '__main__':
-	lists=[3,5,7]
-	for li in lists:
-		print "{0:07b}".format(li)
+    lists=[3,5,7]
+    for li in lists:
+        print "{0:07b}".format(li)
+    so=Solution()
+    print so.getSum(-1,100)
