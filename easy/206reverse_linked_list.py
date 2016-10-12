@@ -13,8 +13,7 @@ class Solution(object):
         if head==None or head.next==None: return head
         prev,cur,nex=None,head,head.next
         while cur!=None:
-        	cur.next=prev
-        	prev=cur
-        	cur=nex
-        	nex=nex.next
+            if cur==head:
+                
+
 
