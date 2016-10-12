@@ -5,22 +5,31 @@ class Solution(object):
         :type wordDict: Set[str]
         :rtype: bool
         """
+        if s=="":return True
         lenlst = [len(word) for word in wordDict]
+        if lenlst==[]:return False
         minlen = min(lenlst)
         maxlen = max(lenlst)
-        boolst = [False for t in s]
-        for idx in range(minlen,maxlen+1):
-        	if s[:idx] in wordDict:
-        		boolst[idx] = True
-        print boolst
-        for idx in range(maxlen,len(s)):
-        	for ml in range(maxlen,minlen-1,-1):
-        		new = s[idx-ml+1:idx+1]
-        		if new in wordDict:
-        			boolst[idx] = boolst[idx] or  boolst[idx-ml]
-        return boolst[len(s)-1]
+        ret=[0]*(len(s)+1)
+        ret[0]=1
+        # print ret
+        for idx in range(1,len(s)+1):
+            for word in wordDict:
+                start= idx-len(word)+1
 
-x="leetcode"
-y=["leet","code"]
+                if start>=1:
+                    # print "start:",start,s[start:]
+                    # print idx,start,word,ret[start-1],s[start-1:idx],s
+                    if ret[start-1]==1 and s[start-1:idx]==word:
+                        ret[idx]=1
+                        break
+            # print idx,ret
+        return True if ret[len(s)]==1 else False
+
+
+
+
+x="bb"
+y=["a","b","bbb","bbbb"]
 so = Solution()
 print so.wordBreak(x,y)
