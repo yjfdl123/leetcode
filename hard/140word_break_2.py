@@ -7,30 +7,32 @@ class Solution(object):
         """
         import copy
         if s=="" or wordDict==[]:
-        	return []
+            return []
         if not wordDict:
-        	return []
+            return []
         lst = [len(word) for word in wordDict]
         minl = min(lst)
         maxl = max(lst)
         ret = {idx:[] for idx in range(len(s)+1)}
         for idx in range(minl,len(s)+1):
-        	# for mr in range(minl,maxl+1):
-        	for mr in range(maxl,minl-1,-1):
-        		if idx>=mr :
-        			new = s[idx-mr:idx]
-        			# if wordDict.count(new)>0:
-        			if new in wordDict:
-        				lastend = idx-mr
-        				tmp = copy.deepcopy(ret[lastend])
-        				if tmp==[]:
-        					tmp = [[new]]
-        				else:
-        					[key.append(new) for key in tmp]
-        				ret[idx].extend(tmp)
-       	sen =[]
+            for mr in range(minl,maxl+1):
+            # for mr in range(maxl,minl-1,-1):
+                if idx>=mr :
+                    new = s[idx-mr:idx]
+                    # if wordDict.count(new)>0:
+                    if new in wordDict:
+                        if (idx-mr==0) or len(ret[idx-mr])>0:
+                            lastend = idx-mr
+                            tmp = copy.deepcopy(ret[lastend])
+                            if tmp==[]:
+                                tmp = [[new]]
+                            else:
+                                [key.append(new) for key in tmp]
+                            ret[idx].extend(tmp)
+        # print ret
+        sen =[]
         for line in ret[len(s)]:
-        	sen.append(' '.join(line))
+            sen.append(' '.join(line))
         return sen
 
 
@@ -38,7 +40,23 @@ class Solution(object):
 
 
 
-s="catsanddog"
-dic= ["cat", "cats", "and", "sand", "dog"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# s="catsanddog"
+# dic= ["cat", "cats", "and", "sand", "dog"]
+s="aaaaaaa"
+dic=["aaaa","aa"]
 so=Solution()
 print so.wordBreak(s,set(dic))

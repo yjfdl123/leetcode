@@ -21,13 +21,19 @@ class Solution(object):
         	return self.loop(inorder,0,lenin-1,postorder,0,lenpo-1)
 
     def loop(self,inorder,instart,inend,postorder,postart,poend):
-    	if instart<inend: 
+    	if instart>inend:                           ###0
     		return None
-    	genpost = postorder[poend]
-    	node = TreeNode(postorder[poend])
-    	index=instart
-    	while inorder[index]!=genpost and index<=inend:
-    		index+=1
-    	node.left  = self.loop(inorder,instart,index-1, postorder,postart,postart+ index-instart-1)
-    	node.right = self.loop(inorder,index+1,inend,   postorder,postart+index-instart,poend)
-    	return node
+        elif instart==inend:                        ###1
+            return TreeNode(inorder[instart])
+        else:                                       ###>1
+        	genpost = postorder[poend]
+        	node = TreeNode(postorder[poend])
+        	index=instart
+        	while index<=inend and inorder[index]!=genpost  :
+        		index+=1
+        	node.left  = self.loop(inorder,instart,index-1, postorder,postart,postart+ index-instart-1)
+        	node.right = self.loop(inorder,index+1,inend,   postorder,postart+index-instart,poend)
+        	return node
+
+so=Solution()
+print so.buildTree([-1],[-1])
