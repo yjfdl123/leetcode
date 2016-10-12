@@ -1,64 +1,40 @@
+#coding=utf-8
 import re
 class Solution(object):
-    def cal_plus(self,stack):
-    	print stack
-    	idx=0
-        ret=stack[idx]
-        idx+=1
-        while idx<len(stack):
-            fuhao = stack[idx]
-            num = stack[idx+1]
-            idx+=2
-            if fuhao=="+":
-                ret+=num
-            elif fuhao=="-":
-                ret-=num
-        return ret
     def calculate(self, s):
         """
         :type s: str
         :rtype: int
         """
-        stack = []
-        start, end = 0,len(s)
-        left = ["("]
-        cal = ["+","-"]
-        right = [")"]
-        pat = re.compile("^\d+")
-
+        if s=="": return 0
+        ret=0
+        start,end=0,len(s)
+        stack=[1]                      #存储当前处理括号的符号
+        cur=1
         while start<end:
-            digit = pat.findall(s[start:])
-            if digit:
-                stack.append(int(digit[0]))
-                start+=len(digit[0])
-                continue
-            if left.count(s[start])>0 or cal.count(s[start])>0:
-                stack.append(s[start])
-                start+=1
-            elif right.count(s[start])>0:
-                idx=len(stack)-1
-                while stack[idx]!=left[0]:
-                    idx-=1
-                idx+=1
-                ret = self.cal_plus(stack[idx:])
-                while stack[-1]!=left[0]: stack.pop()
+            if s[start].isdigit():       #数字处理,取出stack[-1]进行叠加
+                num=0
+                while s[start].isdigit():
+                    num=num*10+int(s[start])
+                    start+=1
+                ret = ret + cur*num
+            elif s[start]==")":          #pop
                 stack.pop()
-                stack.append(ret)
                 start+=1
-            elif s[start]==' ':
+            elif s[start]==" " :          #是空格忽略
                 start+=1
-        if stack:
-        	return self.cal_plus(stack)
+            elif s[start]=="(":           ##开始变号
+                stack.append(stack[-1]*cur)
+                cur=1
+                start+=1
+            else:                    #+-要变号
+                cur=stack[-1] if s[start]=="+" else -stack[-1]
+                start+=1
+        return ret
 
 
-pat=re.compile("^\d+")
-x="d123csd32dfsdvd"
-y=pat.findall(x)
-print y
 
-print "3".isdigit()
 
 so = Solution()
 print so.calculate("100 + 100 3")
 print so.calculate("(1+(4+5+2232)- 3)+(6+ 8)")
-z=Basic Calculator

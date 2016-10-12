@@ -13,17 +13,20 @@ class Solution(object):
         :type sum: int
         :rtype: List[Li
         """
-        ret=[]
-        self.find_path(root,sum,[],ret)
+        if root==None: return []
+        path,ret=[],[]
+        self.find(root,sum,path,ret)
         return ret
 
-    def find_path(self,root,sum,path,ret):
-    	if root==None:
-    		if 0==sum and ret.count(path)==0 and path:
-    			tmp = copy.deepcopy(path)
-    			ret.append(tmp)
-    	else:
-	    	path.append(root.val)
-	    	self.find_path(root.left,sum-root.val,path,ret)
-	    	self.find_path(root.right,sum-root.val,path,ret)
-	    	path.pop()
+    def find(self,root,sum,path,ret):
+        if root.left==None and root.right==None:
+            if root.val==sum:
+                path.append(root.val)
+                tmp = copy.deepcopy(path)
+                ret.append(tmp)
+                path.pop()
+        else:
+            path.append(root.val)
+            if root.left!=None: self.find(root.left,sum-root.val,path,ret)
+            if root.right!=None: self.find(root.right,sum-root.val,path,ret)
+            path.pop()
