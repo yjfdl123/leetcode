@@ -1,15 +1,35 @@
+#coding=utf-8
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 class Solution(object):
+    def __init__(self):
+        self.depth={}
+
     def isBalanced(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
-        small,big = self.get_min_max_path(root)
-        return big-small<=1
+        if root==None:
+            self.depth[root]=0
+            return True
+        if self.isBalanced(root.left) and self.isBalanced(root.right):    ##先判断子节点都是平衡的
+            leftdp  = self.depth[root.left]
+            rightdp = self.depth[root.right]
+            if abs(leftdp- rightdp)>1: 
+                return False
+            else:
+                self.depth[root]=max(leftdp, rightdp)+1
+                return True
+        else:
+            return False
 
-    def get_min_max_path(self,root):
-    	if root==None:
-    		return 0,0
-    	lmin,lmax = self.get_min_max_path(root.left)
-    	rmin,rmax = self.get_min_max_path(root.right)
-    	return min(lmin,rmin)+1,max(lmax,rmax)+1
+
+x={}
+x[0]=1
+x[None]=3
+print x
