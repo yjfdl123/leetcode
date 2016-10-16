@@ -2,6 +2,7 @@
 #include<iostream>
 #include<algorithm>
 #include<queue>
+#include<numeric>
 using namespace std;
 #define  GETSIZE(arr) (sizeof(arr)/sizeof(arr[0]))
 template<typename T>
