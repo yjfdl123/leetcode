@@ -25,6 +25,14 @@ void print_vec_pair(vector<pair<int,int> > &vec){
         cout<< iter->first<<"  "<<iter->second<<endl;
     };
 };
+void print_2vec_string(vector<vector<string> > vec){
+    for (int i=0;i<vec.size();i++){
+        for (int j=0;j<vec[0].size();j++){
+            cout<<vec[i][j].c_str()<<endl;
+        };
+        cout<<endl;
+    };
+};
 template<typename T>
 vector<T> array_to_vec(T arr[],int len){
     vector<T> vec;
