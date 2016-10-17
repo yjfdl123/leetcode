@@ -4,13 +4,16 @@
 struct Grid{
     int minboard;
     int maxboard;
+    int localnum;
+    Grid():localnum(0){};
 };
 class Solution {
 public:
     int maximumGap(vector<int>& nums) {
         if (nums.size()<2) return 0;
+        if (nums.size()==2) return abs(nums[0]-nums[1]);
         int gapnum = nums.size()-1;
-        int start=INT_MIN , end=INT_MIN;
+        int start=INT_MAX , end=INT_MIN;
         for (int i=0;i<nums.size();i++){
             start = min(start,nums[i]);
             end = max(end, nums[i]);
@@ -20,19 +23,27 @@ public:
         vec.reserve(gapnum);
         for (int i=0;i<gapnum;i++){
             Grid * tmp = new Grid();
-            tmp->minboard=INT_MAX;
-            tmp->maxboard=INT_MIN;
+            tmp->minboard=0;
+            tmp->maxboard=0;
             vec.push_back(tmp);
         };
         int level=0;
-        for (int i=0;i<nums.size();i++){
+        for (int i=0;i<gapnum;i++){
             level = (floor)(nums[i]/interval);
-            vec[level]->minboard = min(vec[level]->minboard,nums[i]);
-            vec[level]->maxboard = max(vec[level]->maxboard,nums[i]);
+            if (vec[level]->localnum==0){
+                vec[level]->minboard = vec[level]->maxboard = nums[i];
+            }else{
+                vec[level]->minboard = min(vec[level]->minboard,nums[i]);
+                vec[level]->maxboard = max(vec[level]->maxboard,nums[i]);
+            };
+            vec[level]->localnum++;
         };
-        int ret=INT_MIN;
-        for (int i=1;i<nums.size();i++){
-            ret = max(ret, vec[i]->minboard - vec[i]->maxboard);
+        int previous=0;
+        int ret=0;
+        for (int i=1;i<gapnum;i++){
+            if (vec[i]->localnum==0) continue;
+            ret = max(ret, vec[i]->minboard - vec[previous]->maxboard);
+            previous = i;
         };
         return ret;
     }
