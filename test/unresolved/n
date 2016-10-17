@@ -1,0 +1,68 @@
+#include "cpphelp.cpp"
+class TrieNode{
+public:
+    char val;
+    bool isword;
+    TrieNode * table[26];
+    TrieNode(char ch):val(ch){
+        isword = false;
+        for (int i=0;i<26;i++) table[i]=NULL;
+    };
+};
+class WordDictionary {
+public:
+    WordDictionary(){
+        root = new TrieNode('*');
+    };
+    // Adds a word into the data structure.
+    void addWord(string word) {
+        TrieNode * node;
+        int index=0;
+        for (int i=0;i<word.size();i++){
+            index=word[i]-'a';
+            if ( (node->talbe)[index]==NULL){
+                TrieNode* newnode=new TrieNode(word[i]);
+                (node->table)[index] = newnode;
+            };
+            node = (node->table)[index];
+            if (i==word.size()-1) node->isword=true;
+        };
+    }
+
+    // Returns if the word is in the data structure. A word could
+    // contain the dot character '.' to represent any one letter.
+    bool search(string word) {
+        if (word.size()==0) return true;
+        return find(root,word);    
+    }
+    bool find(TrieNode* node, string word){
+        if (node==NULL) return false;
+        if (word.size()==1){
+            if (word[0]=='.') {
+                return true;
+            }else{
+                TrieNode * child= (node->table)[word[0]-'a'];
+                return (child!=NULL) && (child.isword);
+            };
+        }else{
+            if (word[0]=='.'){
+            }else{
+                TrieNode * child = (node->table)[word[0]-'a'];
+                if (child==NULL){
+                    return false;
+                }else{
+                    return find(child,word.substr(1)); 
+                };
+            }
+        };
+    };
+private:
+    TrieNode * root;
+};
+
+// Your WordDictionary object will be instantiated and called as such:
+// WordDictionary wordDictionary;
+// wordDictionary.addWord("word");
+// wordDictionary.search("pattern");
+int main(){
+};
