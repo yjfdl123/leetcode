@@ -18,7 +18,7 @@ public:
             start = min(start,nums[i]);
             end = max(end, nums[i]);
         };
-        double interval = (double)(end-start)/gapnum;
+        double interval = (double)(end-start)/gapnum+1;
         vector<Grid*> vec;
         vec.reserve(gapnum);
         for (int i=0;i<gapnum;i++){
@@ -49,10 +49,8 @@ public:
     }
 };
 int main(){
-    cout<<INT_MAX<<endl;
-    cout<<INT_MIN<<endl;
     Solution so;
-    int arr[]={1,10000};
+    int arr[]={1,1,1,1};
     vector<int> test = array_to_vec(arr,GETSIZE(arr));
     cout<< so.maximumGap( test);
 };

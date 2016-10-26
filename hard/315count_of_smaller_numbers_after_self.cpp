@@ -4,16 +4,20 @@ public:
     vector<int> countSmaller(vector<int>& nums) {
         int len=nums.size();
         vector<int> ret(len,0);
-        vector<int> minarr(1,0);
+        vector<int> minarr;
         vector<int>::iterator iter;
         int index;
         for (int i=len-1;i>=0;i--){
             if (i==len-1){
                 minarr.push_back(nums[i]);
+                ret[i]=0;
             }else{
                 iter=lower_bound( minarr.begin(),minarr.end(),nums[i]); 
                 index=distance(minarr.begin(),iter);
-                if (nums[i]==*iter){
+                if (index==minarr.size()){
+                    minarr.push_back(nums[i]);
+                    ret[i]=index;
+                }else if (nums[i]==*iter){
                     ret[i]=index;
                 }else if(nums[i]<*iter){
                     ret[i]=index;
